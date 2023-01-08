@@ -1,0 +1,149 @@
+<!DOCTYPE html>
+<html lang="en">
+    <head>
+        <title>Mask Shopping Cart</title>
+        <!-- Required meta tags -->
+        <meta charset="utf-8" />
+        <meta
+            name="viewport"
+            content="width=device-width, initial-scale=1, shrink-to-fit=no"
+        />
+        <link
+            href="https://cdn.jsdelivr.net/npm/bootstrap@5.3.0-alpha1/dist/css/bootstrap.min.css"
+            rel="stylesheet"
+            integrity="sha384-GLhlTQ8iRABdZLl6O3oVMWSktQOp6b7In1Zl3/Jr59b6EGGoI1aFkw7cmDA6j6gD"
+            crossorigin="anonymous"
+        />
+        <link
+            rel="stylesheet"
+            href="https://use.fontawesome.com/releases/v5.8.1/css/all.css"
+            integrity="sha384-50oBUHEmvpQ+1lW4y57PTFmhCaXp0ML5d60M1M7uH2+nqUivzIebhndOJK28anvf"
+            crossorigin="anonymous"
+        />
+        <style>
+            input::-webkit-outer-spin-button,
+            input::-webkit-inner-spin-button {
+                -webkit-appearance: none !important;
+                appearance: none !important;
+            }
+
+            input[type='number'] {
+                -moz-appearance: textfield;
+                appearance: textfield;
+            }
+
+            .table thead th {
+                border-bottom: 1px solid #ccc;
+            }
+            #saved-position {
+                width: fit-content;
+                margin-left: auto;
+                margin-right: 5%;
+                padding: 6px 12px;
+            }
+        </style>
+    </head>
+
+    <body>
+        <nav>
+            <p id="saved-position"><i class="fas fa-envelope"></i></p>
+        </nav>
+        <div class="container">
+            <h5>Hi, <訪客> 歡迎到資策會口罩銷售平台</h5>
+            <h6>請選擇您想要購買的口罩及數量：</h6>
+            <div class="row" id="mask"></div>
+            <div class="row justify-content-center mt-3">
+                <div class="col-12 col-lg-4">
+                    <div id="cart" class="cart card">
+                        <div class="card-body">
+                            <h3 class="card-title h5">購物車</h3>
+                            <table class="table table-sm">
+                                <thead>
+                                    <tr>
+                                        <th class="text-nowrap">品名</th>
+                                        <th class="text-nowrap">單價</th>
+                                        <th
+                                            style="
+                                                width: 70px;
+                                                padding-left: 30px;
+                                            "
+                                        >
+                                            數量
+                                        </th>
+                                    </tr>
+                                </thead>
+                                <tbody id="cart-list"></tbody>
+                            </table>
+                            <span
+                                id="totalPrice"
+                                style="float: right; padding-bottom: 5px"
+                            ></span>
+                            <button
+                                id="checkoutBtn"
+                                class="btn btn-info btn-block"
+                                disabled="disabled"
+                            >
+                                結帳
+                            </button>
+                        </div>
+                    </div>
+                </div>
+            </div>
+        </div>
+        <script
+            src="https://code.jquery.com/jquery-3.6.3.min.js"
+            integrity="sha256-pvPw+upLPUjgMXY0G+8O0xUf+/Im1MZjXxxgOcBQBXU="
+            crossorigin="anonymous"
+        ></script>
+        <script>
+            //設定 ajax 失敗重試次數
+            let ajaxRetryNum = 0;
+
+            //取得口罩資料的函式
+            function getData() {
+                $.ajax({
+                    method: 'GET',
+                    url: './json/mask.json',
+                    dataType: 'json',
+                })
+                    .done(function (mask) {
+                        //重試次數歸零
+                        ajaxRetryNum = 0;
+
+                        //將口罩資料呈現
+                        mask.forEach(function (item) {
+                            $('#mask').append(`
+                        <div class="mt-2 col-12 col-sm-6 col-lg-3">
+                            <div class="card">
+                                <img src="./imgs/${item.image}" class="card-img-top" alt="...">
+                                <div class="card-body py-0">
+                                    <h5 class="card-title" id="name" data-name="${item.name}">${item.name}</h5>
+                                    <div class="d-flex justify-content-between">
+                                        <p class="card-text text-danger" data-price="${item.price}">$${item.price}</p>
+                                        <div class="btn-wrap">
+                                            <button type="button" class="btn btn-primary mb-3 shopping-save"><i
+                                            class="fas fa-heart"></i></button>
+                                            <button type="button" class="btn btn-primary mb-3 shopping-cart"><i
+                                            class="fas fa-shopping-cart"></i></button>
+                                        </div>
+                                        
+                                    </div>
+                                </div>
+                            </div>
+                        </div>
+                    `);
+                        });
+                    })
+                    .fail(function () {
+                        //如果失敗次數在 5 次以內，則重新取得資料;
+                        if (ajaxRetryNum < 5) getData();
+                        //失敗次數 +1
+                        ajaxRetryNum += 1;
+                    });
+            }
+
+            //開始取得口罩資料
+            getData();
+        </script>
+    </body>
+</html>

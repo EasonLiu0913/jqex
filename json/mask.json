@@ -1,0 +1,22 @@
+[
+    {
+        "name": "中衛醫療口罩",
+        "price": 160,
+        "image": "item-1.jpg"
+    },
+    {
+        "name": "勤達醫療口罩",
+        "price": 188,
+        "image": "item-2.jpg"
+    },
+    {
+        "name": "安馨醫用口罩",
+        "price": 229,
+        "image": "item-3.jpg"
+    },
+    {
+        "name": "藍歐兒醫用口罩",
+        "price": 149,
+        "image": "item-4.jpg"
+    }
+]
