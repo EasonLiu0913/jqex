@@ -15,27 +15,52 @@
             href="https://use.fontawesome.com/releases/v5.3.1/css/all.css"
         />
         <style>
+            .wrap {
+                padding-left: 10px;
+                padding-right: 10px;
+            }
+
             .slider-window {
                 max-width: 800px;
                 height: 400px;
                 overflow: hidden;
+                position: relative;
             }
 
-            .img-wrap {
+            .train {
+                position: absolute;
+                top: 0;
+                bottom: 0;
                 width: 500%;
                 left: 0px;
                 transition: 0.5s;
+                display: flex;
             }
 
-            li img {
-                width: 100%;
+            .train li {
+                flex-grow: 1;
+                flex-basis: 0;
                 height: 100%;
-                object-fit: cover;
-                /* object-position: 50% bottom; */
+            }
+
+            .train li:nth-child(1) {
+                background: url(./imgs/slide1.jpg) center center/cover;
+            }
+            .train li:nth-child(2) {
+                background: url(./imgs/slide2.jpg) center center/cover;
+            }
+            .train li:nth-child(3) {
+                background: url(./imgs/slide3.jpg) center center/cover;
+            }
+            .train li:nth-child(4) {
+                background: url(./imgs/slide4.jpg) center center/cover;
+            }
+            .train li:nth-child(5) {
+                background: url(./imgs/slide5.jpg) center center/cover;
             }
 
             .slider-dots {
-                bottom: 0;
+                bottom: 10px;
             }
 
             .slider-dots li {
@@ -45,13 +70,17 @@
                 border: 1px solid #fff;
             }
 
+            .slider-dots li:nth-child(1) {
+                background: #fff;
+            }
+
             .prevPageArea,
             .nextPageArea {
                 position: absolute;
                 top: 0;
                 bottom: 0;
                 width: 8%;
-                /* background-color: #ccc; */
+                min-width: 40px;
                 display: flex;
                 justify-content: center;
                 align-items: center;
@@ -78,40 +107,42 @@
     </head>
 
     <body>
-        <div class="slider-window mx-auto position-relative mt-5">
-            <ul class="list-unstyled d-flex img-wrap position-absolute">
-                <li>
-                    <img src="./imgs/slide1.jpg" alt="" />
-                </li>
-                <li>
-                    <img src="./imgs/slide2.jpg" alt="" />
-                </li>
-                <li>
-                    <img src="./imgs/slide3.jpg" alt="" />
-                </li>
-                <li>
-                    <img src="./imgs/slide4.jpg" alt="" />
-                </li>
-                <li>
-                    <img src="./imgs/slide5.jpg" alt="" />
-                </li>
-            </ul>
+        <div class="wrap">
+            <div class="slider-window mx-auto position-relative mt-5">
+                <ul class="list-unstyled train">
+                    <li>
+                        <!-- <img src="./imgs/slide1.jpg" alt="" /> -->
+                    </li>
+                    <li>
+                        <!-- <img src="./imgs/slide2.jpg" alt="" /> -->
+                    </li>
+                    <li>
+                        <!-- <img src="./imgs/slide3.jpg" alt="" /> -->
+                    </li>
+                    <li>
+                        <!-- <img src="./imgs/slide4.jpg" alt="" /> -->
+                    </li>
+                    <li>
+                        <!-- <img src="./imgs/slide5.jpg" alt="" /> -->
+                    </li>
+                </ul>
 
-            <ul
-                class="list-unstyled slider-dots position-absolute d-flex justify-content-center w-100"
-            >
-                <li></li>
-                <li></li>
-                <li></li>
-                <li></li>
-                <li></li>
-            </ul>
+                <ul
+                    class="list-unstyled slider-dots position-absolute d-flex justify-content-center w-100"
+                >
+                    <li></li>
+                    <li></li>
+                    <li></li>
+                    <li></li>
+                    <li></li>
+                </ul>
 
-            <div class="prevPageArea">
-                <button class="btnPrev">&lt;</button>
-            </div>
-            <div class="nextPageArea">
-                <button class="btnNext">&gt;</button>
+                <div class="prevPageArea">
+                    <button class="btnPrev">&lt;</button>
+                </div>
+                <div class="nextPageArea">
+                    <button class="btnNext">&gt;</button>
+                </div>
             </div>
         </div>
 
